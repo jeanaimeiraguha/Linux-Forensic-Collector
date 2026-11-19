@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Linux Forensic Collector (LFC) - an open, reviewable diagnostic and digital-forensics collection utility for Linux systems. Nothing runs until you run it.">
+  <title>Linux Forensic Collector (LFC) - Download</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">LFC</span>
+      <div>
+        <h1>Linux Forensic Collector</h1>
+        <p class="tagline">Diagnostic &amp; digital-forensics collection for Linux &mdash; transparent, reviewable, approval-gated.</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="btn btn-primary" href="downloads/lfc-1.0.0.tar.gz" download>Download LFC 1.0.0</a>
+      <a class="btn btn-ghost" href="downloads/lfc.sh" download>Single-file lfc.sh</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="card">
+    <h2>What LFC does</h2>
+    <p>
+      LFC is a modular collection utility you run <strong>on your own Linux machine</strong>, with your
+      explicit authorization, to gather system, filesystem, media, browser, network and software
+      metadata into structured reports you can review before anything leaves the host.
+    </p>
+    <div class="grid">
+      <div class="mini"><h3>System intelligence</h3><p>Distribution, kernel, CPU, memory, storage, filesystems, uptime, hardware model.</p></div>
+      <div class="mini"><h3>Filesystem &amp; media inventory</h3><p>Paths, sizes and timestamps for documents, images, video and audio. <strong>Metadata only &mdash; no file contents.</strong></p></div>
+      <div class="mini"><h3>Browser security audit</h3><p>Installation, versions, profiles and allowlisted security settings. <strong>Never touches passwords, cookies or tokens.</strong></p></div>
+      <div class="mini"><h3>Network audit</h3><p>Interfaces, addressing, DNS, connection metadata and firewall status. <strong>No packet capture.</strong></p></div>
+      <div class="mini"><h3>Installed software</h3><p>Packages, versions, running and enabled services from the native package manager.</p></div>
+      <div class="mini"><h3>Structured reports</h3><p>HTML, JSON, TXT plus filesystem and media CSV inventories and a full audit log.</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>How it works</h2>
+    <ol class="steps">
+      <li><strong>Download</strong> the collection utility from this page (link below).</li>
+      <li><strong>Verify</strong> the download against the published SHA-256 checksum.</li>
+      <li><strong>Review</strong> the script source if you wish &mdash; it is plain Bash you can read.</li>
+      <li><strong>Execute it yourself</strong> from a terminal. Opening this page runs nothing.</li>
+      <li><strong>Approve the scope</strong> when prompted (file metadata scanning is opt-in).</li>
+      <li><strong>Review the generated reports</strong> in the output directory.</li>
+      <li><strong>Approve transmission</strong> only if you want the bundle emailed. Declining keeps everything local.</li>
+    </ol>
+    <p class="note">LFC never executes automatically, never escalates privileges silently,
+      never installs persistence, and never uploads anything without your explicit approval.</p>
+  </section>
+
+  <section class="card">
+    <h2>Download</h2>
+    <table class="dl-table">
+      <thead>
+        <tr><th>File</th><th>Description</th><th>Size</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="downloads/lfc-1.0.0.tar.gz" download><code>lfc-1.0.0.tar.gz</code></a></td>
+          <td>Complete release archive (engine, modules, reporter, config, docs, installer)</td>
+          <td id="size-tarball">&mdash;</td>
+        </tr>
+        <tr>
+          <td><a href="downloads/lfc.sh" download><code>lfc.sh</code></a></td>
+          <td>Main collection script (requires the <code>lib/</code> and <code>collector/</code> directories from the archive)</td>
+          <td id="size-script">&mdash;</td>
+        </tr>
+        <tr>
+          <td><a href="SHA256SUMS.txt" download><code>SHA256SUMS.txt</code></a></td>
+          <td>SHA-256 checksums for all release files</td>
+          <td>&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Verify your download (SHA-256)</h3>
+    <p>After downloading, compare the checksum of your file with the value published in
+      <code>SHA256SUMS.txt</code>:</p>
+    <pre><code># Linux / macOS
+sha256sum lfc-1.0.0.tar.gz
+cat SHA256SUMS.txt
+
+# The two hashes must match exactly.</code></pre>
+    <div id="checksum-panel" class="checksum-panel" hidden>
+      <h4>Published checksums</h4>
+      <pre id="checksum-list">Loading&hellip;</pre>
+      <button type="button" class="btn btn-small" id="copy-checksums">Copy checksums</button>
+    </div>
+    <p class="note warn">If the checksum does not match, do <strong>not</strong> run the file.
+      Re-download it and report the discrepancy.</p>
+  </section>
+
+  <section class="card">
+    <h2>Installation &amp; usage</h2>
+    <pre><code># 1. Extract the archive
+tar -xzf lfc-1.0.0.tar.gz
+cd linux-forensic-collector
+
+# 2. Run the installer (checks Python 3, prepares config, sets permissions)
+./install.sh
+
+# 3. Execute the collector (you run it - nothing runs by itself)
+./lfc.sh
+
+# Useful options
+./lfc.sh --help                 # all options
+./lfc.sh --dry-run              # show the collection plan, execute nothing
+./lfc.sh --scope /path/to/dir   # override the scan scope
+./lfc.sh --no-send              # generate reports, never transmit
+./lfc.sh --verbose              # show audit events live</code></pre>
+    <p class="note">Requirements: Bash 4.4+, Python 3.8+, standard coreutils.
+      No third-party Python packages are needed.</p>
+  </section>
+
+  <section class="card">
+    <h2>Linux compatibility</h2>
+    <table class="compat">
+      <thead><tr><th>Distribution</th><th>Status</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Ubuntu</td><td class="ok">Supported</td><td>20.04 and newer (apt)</td></tr>
+        <tr><td>Debian</td><td class="ok">Supported</td><td>10 and newer (apt)</td></tr>
+        <tr><td>Linux Mint</td><td class="ok">Supported</td><td>20 and newer (apt)</td></tr>
+        <tr><td>Fedora</td><td class="ok">Supported</td><td>32 and newer (dnf)</td></tr>
+        <tr><td>Arch Linux</td><td class="ok">Supported</td><td>Rolling release (pacman)</td></tr>
+        <tr><td>openSUSE</td><td class="partial">Best effort</td><td>zypper/rpm paths implemented</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Missing commands are detected at runtime and recorded as
+      <em>skipped operations</em> in the report instead of failing the run.</p>
+  </section>
+
+  <section class="card">
+    <h2>Security &amp; privacy</h2>
+    <div class="two-col">
+      <div>
+        <h3 class="good">What LFC collects</h3>
+        <ul>
+          <li>System, hardware and resource metadata</li>
+          <li>File <em>metadata</em>: path, size, timestamp, type (opt-in)</li>
+          <li>Media inventory by extension (opt-in, metadata only)</li>
+          <li>Browser install/version/profile locations and allowlisted security settings</li>
+          <li>Network configuration and connection metadata</li>
+          <li>Installed package and service lists</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="bad">What LFC never does</h3>
+        <ul>
+          <li>Read, copy or upload file contents</li>
+          <li>Access passwords, cookies, tokens or private keys</li>
+          <li>Capture packets, sniff traffic or intercept credentials</li>
+          <li>Escalate privileges without asking first</li>
+          <li>Install persistence or background services</li>
+          <li>Transmit reports without your explicit approval</li>
+        </ul>
+      </div>
+    </div>
+    <p>Read the full policy in <a href="SECURITY.md">SECURITY.md</a> and the audit trail
+      (<code>audit.log</code>) written with every run.</p>
+  </section>
+
+  <section class="card">
+    <h2>Generated reports</h2>
+    <table class="compat">
+      <thead><tr><th>File</th><th>Contents</th></tr></thead>
+      <tbody>
+        <tr><td><code>system_report.html</code></td><td>Human-readable browsable report</td></tr>
+        <tr><td><code>system_report.json</code></td><td>Machine-readable structured report</td></tr>
+        <tr><td><code>system_report.txt</code></td><td>Plain-text summary for terminals and tickets</td></tr>
+        <tr><td><code>filesystem_inventory.csv</code></td><td>Full filesystem metadata inventory</td></tr>
+        <tr><td><code>media_inventory.csv</code></td><td>Categorized media inventory</td></tr>
+        <tr><td><code>audit.log</code></td><td>Every action taken during the run</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>Linux Forensic Collector (LFC)</strong> &mdash; use only on systems you are
+      authorized to audit. Reports are classified <strong>CONFIDENTIAL</strong> by default.</p>
+    <p class="muted">This page contains no automatic script execution. Downloads are inert
+      files until you choose to run them.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
