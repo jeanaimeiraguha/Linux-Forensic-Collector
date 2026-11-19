@@ -260,5 +260,3 @@ Read [SECURITY.md](SECURITY.md) for the complete policy. Highlights:
 Use only on systems you are authorized to audit. Reports contain sensitive
 system detail — handle them according to your organization's data
 classification policy.
-#   L i n u x - F o r e n s i c - C o l l e c t o r  
- 
